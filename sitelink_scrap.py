@@ -52,7 +52,9 @@ def ExternalLinkList(listPages):
         print(count, "pages checked out of", length_list,".")
     return externalLinksListRaw
 
-print(">>>>",ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com'))))
+#print(">>>>",ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com'))))
+
+exLinkListRaw = ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com')))
 
 def getUniqueExternalLinks(externalLinksListRaw):
     uniqueExternalLinks = []
@@ -63,7 +65,7 @@ def getUniqueExternalLinks(externalLinksListRaw):
             uniqueExternalLinks.append(link[1])
     return uniqueExternalLinks
 
-print(">>>>>>>", getUniqueExternalLinks(ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com')))))
+#print(">>>>>>>", getUniqueExternalLinks(ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com')))))
 
 def identifyBrokenLinks(uniqueExternalLinks):
     count = 0
@@ -85,8 +87,9 @@ def identifyBrokenLinks(uniqueExternalLinks):
     return brokenLinksList
 
 
-print(">>>>>>>>>",identifyBrokenLinks(getUniqueExternalLinks(ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com'))))))
+#print(">>>>>>>>>",identifyBrokenLinks(getUniqueExternalLinks(ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com'))))))
 
+brkLinkList = identifyBrokenLinks(getUniqueExternalLinks(ExternalLinkList(getListUniquePages(getPagesFromSitemap('https://lazarinastoy.com')))))
 
 def matchBrokenLinks(brokenLinksList, externalLinksListRaw):
     brokenLinkLocation = []
@@ -98,3 +101,6 @@ def matchBrokenLinks(brokenLinksList, externalLinksListRaw):
 
     dataframeFinal = pd.DataFrame(brokenLinkLocation, columns=["URL", "Broken Link URL", "Anchor Text"])
     return dataframeFinal
+
+
+print(matchBrokenLinks(brkLinkList, exLinkListRaw))
